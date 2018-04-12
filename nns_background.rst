@@ -2,8 +2,12 @@
 NNS Background 
 ***************
 
-What is NNS
-============
+..  image:: img/logo.png
+   :height: 351px
+   :width: 300px
+   :scale: 50%
+   :alt: NNS logo
+   :align: right
 
 NNS is the NEO Name Service, a distributed, open, and extensible naming system based on the NEO blockchain. 
 
