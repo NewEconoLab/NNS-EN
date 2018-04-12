@@ -40,6 +40,8 @@ addr://abc.test  may point to AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
 
 script://abc.test  may point to 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
 
+.. _namehash:
+
 Detailed Explanation NameHash Algorithm 
 ========================================
 

@@ -137,7 +137,7 @@ This recursive calculation of NameHash can be expressed as a function:
 
     Hash = NameHash ("xxx.xxx.xxx ..."); 
     
-for the realization of NameHash, please refer to Section 3.2.
+for the realization of NameHash, please refer to:ref:`namehash`.
 
 Resolution Process
 ~~~~~~~~~~~~~~~~~~~
