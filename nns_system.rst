@@ -99,13 +99,15 @@ If new protocol types needs to be added, direct configuration can be done withou
 Resolution Rules
 ------------------
 
-Domain name storage
+Domain Name Storage
 ~~~~~~~~~~~~~~~~~~~~~
 
 The domain name NNS stores is 32 byte hashes, rather than plain text of the domain name. Here are reasons for this design.
 
 1. A unified process allows any length of the domain name.
+
 2. It preserves the privacy of the domain name to some extent. 
+
 3. The algorithm for converting a domain name to a hash is called NameHash, and we'll explain it in other documentation. The definition of NameHash is recursive.
 
 1. for example aaa.neo corresponding
@@ -153,7 +155,7 @@ There are fewer operations for quick resolution, but there's a flaw: the third-l
 In the complete manner, the root of the domain name will start with the root domain name and queries ownership and TTL layer by layer. It will fail if they don’t comply with.
 More operations are needed in the complete resolution and operations has a linear growth with the layer number of domain names.
 
-Economic Model-lock-free, cyclically redistributed NNC token
+Economic Model-lock-free, Cyclically Redistributed NNC Token
 =============================================================
 
 NNS system will issue a built-in token called NNC. 
@@ -167,12 +169,12 @@ c) System income redistribution. During the bidding process, the system will cha
 
 Issuance volume and distribution of tokens will be finalized in future version of this whitepaper. 
 
-Domain name browser
+Domain Name Browser
 =====================
 
 NNS domain name browser is the entrance which provides NNS domain name query, auction, transfer and other functions.
 
-Reverse resolution
+Reverse Resolution
 ==================
 NNS will support reverse resolution which will become an effective way to verify addresses and smart contracts. 
 

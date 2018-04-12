@@ -1,8 +1,8 @@
 ****************
-Design details
+Design Details
 ****************
 
-NNS protocol specifications 
+NNS Protocol Specifications 
 ============================
 
 The url we usually use on the Internet is as follows,
@@ -40,8 +40,8 @@ addr://abc.test  may point to AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
 
 script://abc.test  may point to 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
 
-A detailed explanation of NameHash algorithm 
-============================================
+Detailed Explanation NameHash Algorithm 
+========================================
 
 Namehash
 ---------
@@ -54,7 +54,7 @@ The domain name NNS stores is 32byte hashes, rather than plain text of the origi
 
 3. The algorithm for converting a domain name to a hash is called NameHash, 
 
-Domain , domainarray and protocol
+Domain, Domainarray and Protocol
 ----------------------------------
 
 The url we usually use on the Internet is as follows,
@@ -79,7 +79,7 @@ You could invoke the resolution this way
 
 And let the contract to calculate namehash.
 
-NameHash algorithm 
+NameHash Algorithm 
 --------------------
 
 NameHash algorithm is a way to calculate hash step by step after converting domain name into DomainArray. Its code is as follows:
@@ -105,7 +105,7 @@ NameHash algorithm is a way to calculate hash step by step after converting doma
         return hash;
     }
 
-Quick resolution
+Quick Resolution
 -----------------
 
 Complete resolution introduces the whole DomainArray and let smart contracts to check every layer’s resolution one by one. Calculating NameHash could also be done on Client, and then is passed into smart contracts. It’s invoked this way:
@@ -137,10 +137,10 @@ it specifies an independent resolver so that it can be queried. If aaa.bb.test d
 
 The first query, regardless of whether aaa.bb.test has an independent resolver, can be found. 
 
-A detailed explanation of top-level domain name
+Detailed Explanation of Top-level Domain Name
 ================================================
 
-Function signature of top-level domain name contracts
+Function Signature of Top-level Domain Name Contracts
 ------------------------------------------------------
 
 Function signature is as follows:
@@ -150,7 +150,7 @@ Function signature is as follows:
 
 Deploying adopts configuration of parameter 0710, return value 05
 
-Interface of top-level domain name contract
+Interface of Top-level Domain Name Contract
 --------------------------------------------
 
 Top-level domain name’s interface is composed of three parts
@@ -158,7 +158,7 @@ Universal interface. It does not require permission verification and can be invo
 Owner interface. It is valid only when it’s invoked by the owner signature or the owner script.
 Registrar interface. It’s valid only when it’s invoked by the registrar script. 
 
-Universal interface
+Universal Interface
 --------------------
 
 Universal interface doesn’t need permission verification. Its code is as follows.
@@ -183,7 +183,7 @@ Universal interface doesn’t need permission verification. Its code is as follo
         return resolveFull((string)args[0], (string[])args[1]);
 
 rootName()
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 Return the root domain name that the current top-level domain name corresponds to, its return value is string. 
 
@@ -290,8 +290,8 @@ The only difference in this resolution is it verifies step by step whether the o
 
 Its return type is the same with resolve.
 
-The owner interface
-----------------------
+Owner Interface
+-----------------
 
 All of the owner interfaces are in the form of 
 ::
@@ -363,8 +363,8 @@ There is no regulations for other interface forms of domain name resolves. The o
 
 The domain name registrar achieved by the user only need to achieve resolve interface.
 
-the registrar’s interface
---------------------------
+Registrar Interface
+--------------------
 
 There is only one registrar interface that’s called by registrar smart contract. 
 
@@ -386,8 +386,8 @@ If succeed, return [1], if fail, return [0]
 Detailed Explanation of Owner Contract
 ========================================
 
-The workings of the owner contract
------------------------------------
+Workings of the Owner Contract
+-------------------------------
 The owner contract calls the owner_SetXXX interface of top-level domain name contract in the form of Appcall. 
 
 ::
@@ -398,8 +398,8 @@ The owner contract calls the owner_SetXXX interface of top-level domain name con
 The top-level domain name contract will check the call stack, comparing contract it’s called by and the owner that manages the top-level domain name contract.
 So only the owner contract of a domain name can manage this domain name. 
 
-The significance of the owner contract 
------------------------------------------
+Significance of the Owner Contract 
+------------------------------------
 
 Users could achieve complex contract ownership through the owner contract. 
 
@@ -412,7 +412,7 @@ Owned by more than two persons, operate by voting
 Detailed Explanation of Registrar
 ====================================
 
-workings of registrar contract
+Workings of Registrar Contract
 ------------------------------
 
 The registrar contract calls register_SetSubdomainOwner interface of the top-level domain name in the form of Appcall. 
@@ -478,8 +478,8 @@ The workings of the resolver contract
 
 Any contract could call the getInfo interface of the top-level domain name contract to verify the ownership of the domain name in the way of Appcall. 
 
-the resolver interface
-----------------------
+Resolver Interface
+-------------------
 
 The resolver’s parameter form has be 0710, it returns 05. 
 
@@ -523,19 +523,19 @@ Return [1] means succeed, or [0] means fail.
 Detailed Explanation of Domain Name Registration via Bid-auction
 ==================================================================
 
-Bidding service
+Bidding Service
 ----------------
 
 Bidding service’s purpose is to determine who has the right to register a second-level domain name. 
 This service is composed of 4 steps: opening a bid, placing a bid, revealing a bid and winning a bid. 
 
-Opening a bid
+Opening a Bid
 --------------
 
 Any domain name that has not been registered or has expired and does not violate the domain definition can be applied by any standard address (account) to open a bid. 
 Once the bid is opened, it means that bidding for the ownership of the domain name begins.
 
-Placing a bid
+Placing a Bid
 --------------
 
 Opening a bid is initiates placing a bid, which lasts for 72 hours, during which time any standard address (account) can submit an encrypted quote and pay a NNC deposit. 
@@ -552,13 +552,13 @@ Winning the bid
 After revealing the bid is finished, bid winners need to get the ownership of the domain name via a transaction. 
 The distribution rules of domain names via bid-auction will be specified in the future. 
 
-Trading service
+Trading Service
 ----------------
 
 Trading service allows domain name registrar to publish the invitation of domain name ownership transfer. 
 It supports both fixed-price transfer and Dutch auction transfer.
 
-Technical Realization of Lock-free cyclical redistributed token NNC
+Technical Realization of Lock-free Cyclical Redistributed Token NNC
 ====================================================================
 
 The NNS’s economic system needs an asset, so we designed an asset. 
@@ -650,7 +650,7 @@ Let’s take numbers to exemplify it. For example, there are 3 bonus pools: they
 For example, there is 50300000 NNC in a bonus pool. Then the user’s bonus collection ratio is 50300000 /（100000000-50300000）=1.23587223. This user’s fixed asset is 100, then he can collect 123.587223 NNC from the pool. 
 If there is 500, 000 NNC in a bonus pool, then his collection ratio is 500000 /（100000000-500000）=0.00502512, as the user has 100 NNC of fixed asset, then he can collect 0.502512 NNC from the pool.  
 
-NNC interface( only additional interfaces compared with NEP 5 will be described)
+NNC Interface(only additional interfaces compared with NEP 5 will be described)
 --------------------------------------------------------------------------------
 
 NNC first meets the NEP5 standard, and the NEP standard interface will not be described any more.

@@ -1,5 +1,5 @@
 ***************
-NNS background 
+NNS Background 
 ***************
 
 What is NNS
@@ -17,7 +17,7 @@ NNS can be used to resolve a wide variety of resources.
 The initial standard for NNS defines resolution for NEO addresses or Smart contracts(ScriptHash), but the system is extensible, 
 allowing more resource types to be resolved in future without NNS upgrades.
 
-Why do we need NNS?
+Why do We Need NNS?
 ====================
 
 When Satoshi Nakamoto designed Bitcoin address, he created base58 encode by himself rather than adopting base 64 encode commonly used in coding community.
@@ -35,8 +35,8 @@ The primary usage scenario of alias service is transfer of tokens via alias, esp
 What types of resource an alias points to is extensible, as long as corresponding resolver is achieved. Besides pointing to an account address, an alias could also point to a contract address, so smart contracts can be invoked via alias. There will probably be many smart contract templates, thus mistakes could be avoided if  the alias service is used to invoke smart contract templates.
 As blockchain is the infrastructure of next generation Internet, an increasing number of services will be based on blockchain. For example, the decentralized cloud storage service. File addressing is done through the file’s hash value-the only identifier. We could give a hash value an alias such as a file name that could be understood easily, then we map the alias to the file’s hash value to achieve the file addressing. So alias service could be used together with NEOFS-the decentralized file storage based on NEO in future. NNS could also provide alias service for decentralized messaging, decentralized email service and so forth as more and more services are being built on NEO. 
 
-The relationship between NNS and ENS
-=======================================
+Relationship Between NNS and ENS
+==================================
 
 NNS and ENS share the same goal of increasing the usability of blockchain.
 But they are based on different blockchain platforms and serve different blockchain platforms. 
