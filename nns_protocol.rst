@@ -5,26 +5,32 @@ Design Details
 NNS Protocol Specifications 
 ============================
 
-The url we usually use on the Internet is as follows,
+The URL we usually use on the Internet is as follows,
 
 ::
 
     http://aaa.bbb.test/xxx 
 
-1. http is a protocol, the domain name and protocol will be passed on separately when NNS service is requested. 
+1. HTTP is a protocol, the domain name and protocol will be passed on separately when NNS service is requested. 
 
 2. aaa.bbb.test is the domain name, NNS service request using the hash of the domain name
 
-3. Xxx is the path, the path is not processed at the dns level, the same goes with nns, if there is a path, it will be processed by other ways. 
+3. Xxx is the path, the path is not processed at the DNS level, the same goes with nns, if there is a path, it will be processed in other ways. 
 
 Definitions of using strings in NNS protocol
 The following are tentative definitions.  
 
-**http protocol** `http protocol points to a string, which means it’s an Internet address.`
+**HTTP**
 
-**addr protocol** `addr protocol points to a string, which means it’s a NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv`
+ `HTTP protocol points to a string, which means it’s an Internet address.`
 
-**script protocol** `script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5`
+**addr** 
+
+ `addr protocol points to a string, which means it’s an NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv`
+
+**script** 
+ 
+ `script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5`
 
 One and the same domain name is processed differently by different protocols. 
 
@@ -40,7 +46,7 @@ Detailed Explanation NameHash Algorithm
 Namehash
 ---------
 
-The domain name NNS stores is 32byte hashes, rather than plain text of the original domain name. Here are reasons for this design. 
+The domain name NNS stores are 32byte hashes, rather than the plain text of the original domain name. Here are reasons for this design. 
 
 1. A unified process allows any length of the domain name.
 
@@ -48,20 +54,20 @@ The domain name NNS stores is 32byte hashes, rather than plain text of the origi
 
 3. The algorithm for converting a domain name to a hash is called NameHash, 
 
-Domain, Domainarray and Protocol
+Domain, Domainarray, and Protocol
 ----------------------------------
 
-The url we usually use on the Internet is as follows,
+The URL we usually use on the Internet is as follows,
 
 ::
 
     http://aaa.bbb.test/xxx 
 
-1. http is a protocol, the domain name and protocol will be passed on separately when NNS service is requested. 
+1. HTTP is a protocol, the domain name and protocol will be passed on separately when NNS service is requested. 
 
 2. aaa.bbb.test is the domain name, NNS service request using the hash of the domain name
 
-3. Xxx is the path, the path is not processed at the dns level, the same goes with nns, if there is a path, it will be processed by other ways. 
+3. Xxx is the path, the path is not processed at the DNS level, the same goes with nns, if there is a path, it will be processed in other ways. 
 
 NNS uses domain name’s array rather domain name, which is a more direct process. 
 Domain name aaa.bb.test is converted into byte array as ["test","bb","aa"]
@@ -80,7 +86,7 @@ NameHash algorithm is a way to calculate hash step by step after converting doma
 
 ::
 
-    // algorithm for converting domain names into hash
+    // algorithm for converting domain names into a hash
     static byte[] nameHash(string domain)
     {
         return SmartContract.Sha256(domain.AsByteArray());
@@ -138,13 +144,13 @@ Detailed Explanation of Top-level Domain Name
 Function Signature of Top-level Domain Name Contracts
 ------------------------------------------------------
 
-Function signature is as follows:
+The function signature is as follows:
 
 ::
 
     public static object Main(string method, object[] args)
 
-Deploying adopts configuration of parameter 0710, return value 05
+Deploying adopts a configuration of parameter 0710, return value 05
 
 Interface of Top-level Domain Name Contract
 --------------------------------------------
@@ -157,7 +163,7 @@ Registrar interface. It’s valid only when it’s invoked by the registrar scri
 Universal Interface
 --------------------
 
-Universal interface doesn’t need permission verification. Its code is as follows.
+The universal interface doesn’t need permission verification. Its code is as follows.
 
 ::
 
@@ -181,12 +187,12 @@ Universal interface doesn’t need permission verification. Its code is as follo
 rootName()
 ~~~~~~~~~~~~
 
-Return the root domain name that the current top-level domain name corresponds to, its return value is string. 
+Return the root domain name that the current top-level domain name corresponds to, its return value is a string. 
 
 rootNameHash()
 ~~~~~~~~~~~~~~
 
-Return NameHash the current top-level domain name corresponds to, its return values is byte[]
+Return NameHash the current top-level domain name corresponds to, its return values are byte[]
 
 getInfo(byte[] namehash)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,7 +230,7 @@ Calculate subdomain name’s NameHash. For example:
     var hash = nameHash("test");
     var hashsub = nameHashSub(hash,"abc")// calculate abc.test’s namehash
 
-its return value is byte[]
+it's return value is byte[]
 
 nameHashArray(string[] nameArray)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,9 +248,9 @@ resolve a domain name
 
 The first parameter is a protocol 
 
-For example, http maps a domain name to an Internet address. 
+For example, HTTP maps a domain name to an Internet address. 
 
-For example, addr maps a domain name to a NEO address( which is probably the most common mapping)
+For example, addr maps a domain name to an NEO address( which is probably the most common mapping)
 
 The second parameter is the hash of the domain name that is to be resolved. 
 
@@ -301,9 +307,9 @@ All of the owner interfaces are in the form of
 
     owner_SetXXX(byte[] srcowner,byte[] nnshash,byte[] xxx). 
     
-Xxx are all scripthash. 
+Xxx is  scripthash. 
 
-Return value is one byte array；[0] means succeed; [1] means fail 
+The return value is one-byte array；[0] means succeed; [1] means fail 
 
 The owner interface accepts both direct signature of account address calls and smart contract owner calls.
 If the owner is a smart contract, the owner should determine their own authority. 
@@ -338,7 +344,7 @@ the following interface must be achieved.
 
 Anyone can call the registrar's interface to check the owner of the subdomain.
 
-There is no regulation for other interface forms of the domain name registrar. The official registrar will be explained in future documentation.
+There is no regulation for other interface forms of the domain name registrar. The official registrar will be explained in the future documentation.
 
 The domain name registrar achieved by the user only need to achieve getSubOwner interface.
 
@@ -363,7 +369,7 @@ the following interface has to be achieved.
 
 Anyone can call the resolver interface for resolution. 
 
-There is no regulations for other interface forms of domain name resolves. The official resolver will be explained in future documentation.
+There are no regulations for other interface forms of domain name resolves. The official resolver will be explained in the future documentation.
 
 The domain name registrar achieved by the user only need to achieve resolve interface.
 
@@ -377,13 +383,13 @@ register_SetSubdomainOwner(byte[] nnshash,string subdomain,byte[] newowner,BigIn
 
 register a subdomain name
  
-nnshash is the namehash of the domain names that is to be operated. 
+nnshash is the namehash of the domain names that are to be operated. 
  
 subdomain is the subdomain name that is to be operated. 
  
 newowner is the scripthash of the new owner’s address. 
  
-ttl is the time to live of the domain name( block height)
+TTL is the time to live of the domain name( block height)
  
 If succeed, return [1], if fail, return [0]
 
@@ -447,7 +453,7 @@ getSubOwner(byte[] nnshash,string subdomain)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This interface is the norms and requirements of registrars. 
-It has to be achieved, because this interface will be invoked to verify rights when a complete resolution is conducted on the domain name. 
+It has to be achieved because this interface will be invoked to verify rights when a complete resolution is conducted on the domain name. 
 
 nnshash is the hash of the domain name
 
@@ -502,7 +508,7 @@ The resolver’s parameter form has be 0710, it returns 05.
 resolve(string protocol,byte[] nnshash)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This interface is the norms and requirements of resolvers. It’s has to be achieved, because this interface will be called for final resolution when a complete resolution is conducted on a domain name. 
+This interface is the norms and requirements of resolvers. It has to be achieved because this interface will be called for final resolution when a complete resolution is conducted on a domain name. 
 
 Protocol  is the string of the protocol
 
@@ -545,14 +551,14 @@ Once the bid is opened, it means that bidding for the ownership of the domain na
 Placing a Bid
 --------------
 
-Opening a bid is initiates placing a bid, which lasts for 72 hours, during which time any standard address (account) can submit an encrypted quote and pay a NNC deposit. 
+Opening a bid is initiates placing a bid, which lasts for 72 hours, during which time any standard address (account) can submit an encrypted quote and pay an NNC deposit. 
 The bidder hides the real quote by sending a sha256 hash of the binary data of a quote and a custom set of 8-bit arbitrary characters as quotes to prevent unnecessary vicious competition. 
 
 If the number of bidders is less than 1 person, placing a bid automatically ends, the domain name can be immediately opened for bidding.  
 Revealing a bid 48 hours of revealing the bid comes after placing a bid is finished. During this period, 
 bidders need to submit the quoted plaintext and encrypted string plaintext to verify the bidder's real bid.
 
-After the bid is revealed, deposit will be returned after system cost is deducted from it. 
+After the bid is revealed, the deposit will be returned after system cost is deducted from it. 
 The bidder who does not reveal the bid will be considered as having given up bidding. 
 If the number of bidders is less than 1 person, the bidding ends automatically, the domain name can be opened immediately for bidding. 
 Winning the bid
@@ -588,7 +594,7 @@ We use the destruction interface to destroy tokens. Tokens to be destroyed are:
 
 3. If anyone wants to destroy part of his or her tokens, they will be destroyed by the system.
 
-Once token are destroyed, they are counted into destruction pool. Assets in the destruction pool will go into the bonus pool, from which users could collect assets. 
+Once token is destroyed, they are counted into destruction pool. Assets in the destruction pool will go into the bonus pool, from which users could collect assets. 
 
 Lock-free Bonus Collection 
 --------------------------
@@ -603,16 +609,15 @@ which means users’ assets are not locked in the whole process.
 NNC uses the mechanism of the bonus pool queue, as shown in the above picture, only a fixed number of bonus pools (for example, five) are kept. 
 The oldest bonus pool(the head pool)will be destroyed when more than five bonus pools are generated.
 
-Besides the bonus pool, users’ assets are composed of two types: fixed assets and change. The holding time of fixed assets can only increase, and users whose holding time is earlier than collection time of a bonus pool are qualified to collect bonus.
+Besides the bonus pool, users’ assets are composed of two types: fixed assets and change. The holding time of fixed assets can only increase, and users whose holding time is earlier than collection time of a bonus pool are qualified to collect the bonus.
 
-The holding time of fixed assets increases after collecting the bonus. It’s like coin hours is consumed, thus preventing repeated collection of the same bonus. 
+The holding time of fixed assets increases after collecting the bonus. It’s like coin hours is consumed, thus preventing the repeated collection of the same bonus. 
 
 Details of The Bonus Pool
 ----------------------------
 
 The token will maintain several bonus pools. When each bonus pool is generated, the assets in the destruction pool will all be transferred into this bonus pool. 
-If the maximum bonus pool number is exceeded, the oldest bonus pool will also be destroyed and the remaining assets 
-in the destroyed bonus pool will also be counted in the latest bonus pool. 
+If the maximum bonus pool number is exceeded, the oldest bonus pool will also be destroyed and the remaining assets in the destroyed bonus pool will also be counted in the latest bonus pool. 
 
 The number of bonus pools is fixed, for example, a bonus pool is generated for every 4096 blocks.
 A maximum of five bonus pools are maintained. When the sixth bonus pool is generated, the first bonus pool will be destroyed,
@@ -621,7 +626,7 @@ Each bonus pool will correspond to a block, this block is the bonus collection t
 the bonus collection time can collect the bonus. 
 
 Details of Fixed Assets and Exchange
------------------------------------
+-----------------------------------------------------
 
 Fixed assets and change, of which fixed assets record a holding time.
 
@@ -631,11 +636,11 @@ Fixed assets + change = user's balance of assets
 
 Fixed assets do not have a fractional part, the decimal part is counted in the change. When “ considered as fixed assets” is mentioned below, it means the integer part is considered as fixed assets, and decimal part as change. 
 
-Change will be firstly used in transfer of tokens and fixed assets will be used only when the change is not enough. 
+Change will be firstly used in the transfer of tokens and fixed assets will be used only when the change is not enough. 
 
 Transferrer: fixed assets can only be reduced. 
 
-Transferee: fixed assets remain unchanged, transferred value is counted in the change. 
+Transferee: fixed assets remain unchanged, the transferred value is counted in the change. 
 
 Fixed assets can only be increased in two ways:
 
@@ -649,13 +654,25 @@ Fixed assets can only be increased in two ways:
  After collecting the bonus, personal assets and the collected bonus will be considered as fixed assets, holding time is the bonus block.
 
 		
-When collecting bonus, users can only collect bonus when their holding time is earlier than bonus pool time. 
+When collecting the bonus, users can only collect bonus when their holding time is earlier than bonus pool time. 
 Bonus collection ratio is calculated as the total amount in the current bonus pools/(the total issuance volume-the total amount in the current bonus pools)
 		
-Let’s take numbers to exemplify it. For example, there are 3 bonus pools: they were produced by block 4096，8000，10000. One user’s fixed assets is 100. His holding time is 7000, then he cannot collect the bonus in the first pool, but can collect bonus from the second and third pools. The current block is 10500. Once the user collects the bonus, his assets holding time becomes 10500, so he cannot collect bonus from any pools. 
+Let’s take numbers to exemplify it. For example, there are 3 bonus pools: they were produced by block 4096，8000，10000. One user’s fixed assets is 100. His holding time is 7000, then he cannot collect the bonus in the first pool, but can collect the bonus from the second and third pools. The current block is 10500. Once the user collects the bonus, his assets holding time becomes 10500, so he cannot collect the bonus from any pools. 
 		
-For example, there is 50300000 NNC in a bonus pool. Then the user’s bonus collection ratio is 50300000 /（100000000-50300000）=1.23587223. This user’s fixed asset is 100, then he can collect 123.587223 NNC from the pool. 
-If there is 500, 000 NNC in a bonus pool, then his collection ratio is 500000 /（100000000-500000）=0.00502512, as the user has 100 NNC of fixed asset, then he can collect 0.502512 NNC from the pool.  
+For example, there is 50300000 NNC in a bonus pool. Then the user’s bonus collection ratio is 
+
+::
+
+    50300000 /（100000000-50300000）=1.23587223
+    
+This user’s fixed asset is 100, then he can collect 123.587223 NNC from the pool. 
+If there is 500, 000 NNC in a bonus pool, then his collection ratio is 
+
+::
+
+    500000 /（100000000-500000）=0.00502512
+    
+as the user has 100 NNC of fixed asset, then he can collect 0.502512 NNC from the pool.  
 
 NNC Interface(only additional interfaces compared with NEP 5 will be described)
 --------------------------------------------------------------------------------
