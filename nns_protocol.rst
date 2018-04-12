@@ -20,17 +20,11 @@ The url we usually use on the Internet is as follows,
 Definitions of using strings in NNS protocol
 The following are tentative definitions.  
 
-**http protocol**
+**http protocol** `http protocol points to a string, which means it’s an Internet address.`
 
- http protocol points to a string, which means it’s an Internet address.
+**addr protocol** `addr protocol points to a string, which means it’s a NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv`
 
-**addr protocol**
-
- addr protocol points to a string, which means it’s a NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
-
-**script protocol**
-
- script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
+**script protocol** `script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5`
 
 One and the same domain name is processed differently by different protocols. 
 
@@ -705,7 +699,7 @@ checkBonus()
 
 Checking current bonus pool doesn’t need a signature.
 
-Return Array<BonusInfo>
+*Return* `Array<BonusInfo>`
 
 ::
 
