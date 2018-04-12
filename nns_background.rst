@@ -12,7 +12,7 @@ NNS Background
 NNS is the NEO Name Service, a distributed, open, and extensible naming system based on the NEO blockchain. 
 
 Our primary goal is to replace irregular string such as wallet address and smart contract Hash which are hard to memorize for humans with words and phrases. 
-We will offer ending in“.neo” name service first. 
+We will offer ending in ".neo" name service first. 
 
 Through name service, people don’t need to remember address and Hash they don’t understand anymore. 
 You could make a transfer or use contracts by just knowing a word or phrase. 

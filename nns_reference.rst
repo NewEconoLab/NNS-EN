@@ -1,5 +1,5 @@
 *********
-参考文献
+Reference
 *********
 
 [1]. NEO White Paper: Superconducting Exchange. https://github.com/neo-project/ docs/blob/e01d268426a8b5f9b3676cfd03d0b8b83d7711a1/en-us/white-paper. md#highly-scalable-architecture-design, Accessed 2018.

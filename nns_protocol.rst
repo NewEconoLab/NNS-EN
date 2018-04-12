@@ -22,23 +22,21 @@ The following are tentative definitions.
 
 **http protocol**
 
-http protocol points to a string, which means it’s an Internet address.
+ http protocol points to a string, which means it’s an Internet address.
 
 **addr protocol**
 
-addr protocol points to a string, which means it’s a NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
+ addr protocol points to a string, which means it’s a NEO address. Like: AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
 
 **script protocol**
 
-script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
+ script protocol points to a byte[], which means a NEO ScriptHash. Like: 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
 
 One and the same domain name is processed differently by different protocols. 
 
-http://abc.test  may point to http://www.163.com
-
-addr://abc.test  may point to AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
-
-script://abc.test  may point to 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
+- http://abc.test  may point to http://www.163.com
+- addr://abc.test  may point to AdzQq1DmnHq86yyDUkU3jKdHwLUe2MLAVv
+- script://abc.test  may point to 0xf3b1c99910babe5c23d0b4fd0104ee84ffeec2a5
 
 .. _namehash:
 
@@ -87,6 +85,7 @@ NameHash Algorithm
 NameHash algorithm is a way to calculate hash step by step after converting domain name into DomainArray. Its code is as follows:
 
 ::
+
     // algorithm for converting domain names into hash
     static byte[] nameHash(string domain)
     {
@@ -135,7 +134,7 @@ You may be thinking why querying aaa.bbb.test is not like this.
 
 We have to consider whether aaa.bb.test has a separate resolver. If aaa.bb.test is sold to someone else, 
 it specifies an independent resolver so that it can be queried. If aaa.bb.test does not have a separate resolver, it is resolved by bb.test’s resolver.
- So this cannot be queried.
+So this cannot be queried.
 
 The first query, regardless of whether aaa.bb.test has an independent resolver, can be found. 
 
@@ -146,6 +145,7 @@ Function Signature of Top-level Domain Name Contracts
 ------------------------------------------------------
 
 Function signature is as follows:
+
 ::
 
     public static object Main(string method, object[] args)
@@ -214,6 +214,7 @@ nameHash(string domain)
 Convert a section of the domain name into NameHash. For example:
 
 ::
+
     nameHash("test") 
     nameHash("abc")
 
@@ -225,6 +226,7 @@ nameHashSub(byte[] domainhash,string subdomain)
 Calculate subdomain name’s NameHash. For example:
 
 ::
+
     var hash = nameHash("test");
     var hashsub = nameHashSub(hash,"abc")// calculate abc.test’s namehash
 
@@ -236,6 +238,7 @@ nameHashArray(string[] nameArray)
 Calculate NameArray’s NameHash，aa.bb.cc.test corresponding nameArray is ["test","cc","bb","aa"]
 
 ::
+
     var hash = nameHashArray(["test","cc","bb","aa"]);
 
 resolve(string protocol,byte[] hash,string or int(0) subdomain)
@@ -256,6 +259,7 @@ The third parameter is the subdomain name that is to be resolved.
 The following code is applied.
 
 ::
+
     var hash = nameHashArray(["test","cc","bb","aa"]);//calculate by Client
     resolve("http",hash,0)//contract resolve http://aa.bb.cc.test
 
@@ -272,11 +276,13 @@ byte[] saves strings. We will write another document to explore protocols.
 Second-level domain name has to be resolved in the way of 
 
 ::
+
     resolve("http",hash,0). 
     
 Other domain names are recommended to be resolved in the way of 
 
 ::
+
     resolve("http",hash,“aa"). 
 
 resolveFull(string protocol,string[] nameArray)
@@ -296,6 +302,7 @@ Owner Interface
 -----------------
 
 All of the owner interfaces are in the form of 
+
 ::
 
     owner_SetXXX(byte[] srcowner,byte[] nnshash,byte[] xxx). 
@@ -326,6 +333,7 @@ Set up Domain Registrar Contract (Domain Registrar is a smart contract) Domain R
 the following interface must be achieved. 
 
 ::
+
     public static object Main(string method, object[] args)
     {
         if (method == "getSubOwner")
@@ -418,6 +426,7 @@ Workings of Registrar Contract
 ------------------------------
 
 The registrar contract calls register_SetSubdomainOwner interface of the top-level domain name in the form of Appcall. 
+
 ::
 
     [Appcall("dffbdd534a41dd4c56ba5ccba9dfaaf4f84e1362")]
@@ -475,6 +484,7 @@ The workings of the resolver contract
 3. When the resolver sets resolution data, it calls the getInfo interface of the top-level domain name contract to verify the ownership of the domain name in the way of Appcall. 
 
 ::
+
     [Appcall("dffbdd534a41dd4c56ba5ccba9dfaaf4f84e1362")]
     static extern object rootCall(string method, object[] arr);
 
@@ -486,6 +496,7 @@ Resolver Interface
 The resolver’s parameter form has be 0710, it returns 05. 
 
 ::
+
     public static byte[] Main(string method, object[] args)
     {
         if (method == "resolve")
@@ -593,7 +604,7 @@ Users’ tokens have to be paid into the system during the bidding, which means 
 consumed after winning the bid or unlocked if the bid is missed. 
 
 However, NNC token is not composed of stages including participating bonus collection, waiting for the bonus and collecting the bonus,
- which means users’ assets are not locked in the whole process. 
+which means users’ assets are not locked in the whole process. 
  
 NNC uses the mechanism of the bonus pool queue, as shown in the above picture, only a fixed number of bonus pools (for example, five) are kept. 
 The oldest bonus pool(the head pool)will be destroyed when more than five bonus pools are generated.
@@ -610,7 +621,7 @@ If the maximum bonus pool number is exceeded, the oldest bonus pool will also be
 in the destroyed bonus pool will also be counted in the latest bonus pool. 
 
 The number of bonus pools is fixed, for example, a bonus pool is generated for every 4096 blocks.
- A maximum of five bonus pools are maintained. When the sixth bonus pool is generated, the first bonus pool will be destroyed,
+A maximum of five bonus pools are maintained. When the sixth bonus pool is generated, the first bonus pool will be destroyed,
 and all of its assets are placed in the latest bonus pool. The above number of bonus pools and how often one bonus pool is produced are both tentative).
 Each bonus pool will correspond to a block, this block is the bonus collection time, only those whose holding time is earlier than 
 the bonus collection time can collect the bonus. 
@@ -636,12 +647,12 @@ Fixed assets can only be increased in two ways:
 
 1. **Create an account**. 
 
-(a transfer to an address which has no NNC is regarded as creating an account)
-The transferred assets are regarded as fixed assets and the holding time is the new block ID. 
+ (a transfer to an address which has no NNC is regarded as creating an account)
+ The transferred assets are regarded as fixed assets and the holding time is the new block ID. 
 
 2. **Collect the bonus**. 
 
-After collecting the bonus, personal assets and the collected bonus will be considered as fixed assets, holding time is the bonus block.
+ After collecting the bonus, personal assets and the collected bonus will be considered as fixed assets, holding time is the bonus block.
 
 		
 When collecting bonus, users can only collect bonus when their holding time is earlier than bonus pool time. 
@@ -666,6 +677,7 @@ Fixed assets holding block does not need a signature. Anybody can check it.
 Return structure:
 
 ::
+
     {
         Cash amount
         The amount of fixed assets 

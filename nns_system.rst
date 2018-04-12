@@ -1,8 +1,8 @@
 ****************************
-NNS system design overview
+NNS System Design Overview
 ****************************
 
-NNS system functions
+NNS System Functions
 ======================
 
 NNS system has two functions: first, to resolve human-readable name like beautiful.neo 
@@ -50,7 +50,7 @@ Owner
 
 The owner of the domain name could be either an account address or a smart contract. 
 (ENS’s design is a smart contract that owns a domain name is called registrar. Actually registrar is the owner’s exception.
- We separate the owner of the domain name from the registrar, making the system clearer.)
+We separate the owner of the domain name from the registrar, making the system clearer.)
 Owners of domain names may: 
 
 1. Transfer the ownership of the domain name to another address. 
@@ -183,24 +183,16 @@ Roadmap
 
 **First quarter, 2018**
 
-• January, 2018, officially released NNS technical white paper
-
-• January, 2018, completed the technical principle test and verification
-
-• January，31st, 2018, release the NNS Phase 1 testing service, including registrar and resolver, on the test net, anyone can register unregistered and rules-compliant domain names.
-
-• February, 2018,  launch testnet-based Domain Name Browser V1
+- January, 2018, officially released NNS technical white paper
+- January, 2018, completed the technical principle test and verification
+- January，31st, 2018, release the NNS Phase 1 testing service, including registrar and resolver, on the test net, anyone can register unregistered and rules-compliant domain names.
+- February, 2018,  launch testnet-based Domain Name Browser V1
 
 **Second quarter, 2018**
 
-• March, 2018, issue NNC on testnet. 
-
-• March, 2018, release NNS Stage 2 testing service including bidding service on testnet, when anyone can apply to NEL for NDS bidding test domain name
-
-• April, 2018, launch testnet-based domain name browser V2.
-
-• May, 2018, issue NNC on mainnet. 
-
-• June, 2018, release NNS service on mainnet. Here comes Neo domain name era. 
-
-• June, 2018, release mainnet-based domain name browser. 
+- March, 2018, issue NNC on testnet. 
+- March, 2018, release NNS Stage 2 testing service including bidding service on testnet, when anyone can apply to NEL for NDS bidding test domain name
+- April, 2018, launch testnet-based domain name browser V2.
+- May, 2018, issue NNC on mainnet. 
+- June, 2018, release NNS service on mainnet. Here comes Neo domain name era. 
+- June, 2018, release mainnet-based domain name browser. 
