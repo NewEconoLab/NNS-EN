@@ -25,15 +25,15 @@ Why do We Need NNS?
 ====================
 
 When Satoshi Nakamoto designed Bitcoin address, he created base58 encode by himself rather than adopting base 64 encode commonly used in coding community.
- In the base58 encode, he deleted some ambiguous characters: 0(zero), O(capital letter o), I(capital letter i) and l( lower case letter L). 
+In the base58 encode, he deleted some ambiguous characters: 0(zero), O(capital letter o), I(capital letter i) and l( lower case letter L). 
 
- This reflects Satoshi Nakamoto’s consideration for the usability of blockchain address. However, blockchain address is still not human-friendly enough, 
- because it’s too long, hard to memorize and not easy to compare whether it’s right or wrong. 
- As blockchain’s popularity increases, the shortcomings of its address will be more obvious. 
+This reflects Satoshi Nakamoto’s consideration for the usability of blockchain address. However, blockchain address is still not human-friendly enough, 
+because it’s too long, hard to memorize and not easy to compare whether it’s right or wrong. 
+As blockchain’s popularity increases, the shortcomings of its address will be more obvious. 
 
- As we won’t use a 32-byte string as an E-mail account today, alias service could provide a huge help for the usability of blockchain system. 
- As IPFS has its alias service IPNS, and Ethereum ENS, We argue that NEO system should have its own alias service. 
- We call it as NEO Name Service(NNS), NEL community will increase the usability of NEO blockchain by providing NNS service. 
+As we won’t use a 32-byte string as an E-mail account today, alias service could provide a huge help for the usability of blockchain system. 
+As IPFS has its alias service IPNS, and Ethereum ENS, We argue that NEO system should have its own alias service. 
+We call it as NEO Name Service(NNS), NEL community will increase the usability of NEO blockchain by providing NNS service. 
 
 The primary usage scenario of alias service is transfer of tokens via alias, especially for those accounts who need to make public their wallet addresses and do not need to change their addresses frequently. For example, when an ICO is underway, the project initiator need to make public its official wallet address on its official website. But even the official wallet address is modified by hackers, it is difficult for investors to notice that. So if the project initiator could make public a short and easy-to-remember address alias, then even it’s modified, it could be easily found, thus preventing wallet address from being modified by hackers.
 What types of resource an alias points to is extensible, as long as corresponding resolver is achieved. Besides pointing to an account address, an alias could also point to a contract address, so smart contracts can be invoked via alias. There will probably be many smart contract templates, thus mistakes could be avoided if  the alias service is used to invoke smart contract templates.
