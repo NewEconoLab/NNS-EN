@@ -533,50 +533,118 @@ data means resolves data
 
 Return [1] means succeed, or [0] means fail. 
 
-Detailed Explanation of Domain Name Registration via Bid-auction
-==================================================================
+NNS Domain Name Registration Mechanism
+===========================================
 
-Bidding Service
-----------------
+The domain name is a scarce and unique resource. 
+The core issue that needs to be considered when designing such a system is how to maximize the value of the domain name. 
+This does not mean that the higher the price of the domain name is speculated, the better it is. 
 
-Bidding service’s purpose is to determine who has the right to register a second-level domain name. 
-This service is composed of 4 steps: opening a bid, placing a bid, revealing a bid and winning a bid. 
+But there should be a reasonable process of value discovery and use. 
+The first problem faced by the economic model of the domain name system is how to reasonably realize the initial registration and distribution of domain names?
 
-Opening a Bid
---------------
+Current Domain Name Registration
+----------------------------------
 
-Any domain name that has not been registered or has expired and does not violate the domain definition can be applied by any standard address (account) to open a bid. 
-Once the bid is opened, it means that bidding for the ownership of the domain name begins.
+In the registration mechanism of blockchain domain names, there are currently two typical registration methods. 
+One is first-come, first-served, such as a Bitshares; and the other is ENS’s auction with sealed bidding registration.
+Let’s first look at the specific steps as well as advantages and disadvantages of these two methods.
 
-Placing a Bid
---------------
+First come, first served is the main method of DNS domain registration. 
+Service providers usually set different prices for different domain names. 
+Due to the decentralized nature of blockchain domain names, there will be no complicated pricing in the 
+first come, first served model. Either free or charge a unified registration fee. 
+First come, first served method is relatively simple to implement, and the user operation is relatively simple. 
+However, there is no market pricing process at the time of initial distribution, and there is no multi-participation. 
+The domain name value needs to be discovered completely in the secondary market.
 
-Opening a bid is initiates placing a bid, which lasts for 72 hours, during which time any standard address (account) can submit an encrypted quote and pay an NNC deposit. 
-The bidder hides the real quote by sending a sha256 hash of the binary data of a quote and a custom set of 8-bit arbitrary characters as quotes to prevent unnecessary vicious competition. 
+When there are few use cases for blockchain domain names, its value is not high and it is not used a lot, 
+first come, first served method can be used as a convenient implementation, but when the demand for blockchain domain names increases, 
+the first-come-first-served does not reflect the market demand well and does not maximize the value of domain names.
 
-If the number of bidders is less than 1 person, placing a bid automatically ends, the domain name can be immediately opened for bidding.  
-Revealing a bid 48 hours of revealing the bid comes after placing a bid is finished. During this period, 
-bidders need to submit the quoted plaintext and encrypted string plaintext to verify the bidder's real bid.
+Ethereum’s domain name service ENS adopts a sealed auction registration method. 
+Its registration process is composed of bid opening, placing, revealing, and bid winning?. 
+The whole process lasts about 7 days, and the main part is placing a bid and revealing a bid process. 
+The blockchain is an open and transparent ledger system. In order to achieve sealed bidding, the user’s bid consists of two parts, 
+one is the real bid, and the other is the confusion money. 
+Others can see your total bid in the system rather than your real bid to avoid the information advantage of later bidding. 
+In the bid revealing stage, the user needs to send his own locally saved ciphertext to the smart contract to reveal the true bid. 
+After the revealing period is over, the final bid winner will be determined.
 
-After the bid is revealed, the deposit will be returned after system cost is deducted from it. 
-The bidder who does not reveal the bid will be considered as having given up bidding. 
-If the number of bidders is less than 1 person, the bidding ends automatically, the domain name can be opened immediately for bidding. 
-Winning the bid
-After revealing the bid is finished, bid winners need to get the ownership of the domain name via a transaction. 
-The distribution rules of domain names via bid-auction will be specified in the future. 
+The disadvantage of auctions with sealed bidding is that they cannot achieve a complete seal, 
+and there will still be information leaks because the actual bid cannot exceed the total price. 
+Second, the user experience is poor. The user needs to save the ciphertext and reveal the bid in the bid revealing period on time. 
+Users need to do a lot of work, or it will lose the qualification and bid fund.
 
-Trading Service
-----------------
+We believe that sealed bids are not completely sealed, and the auction experience is poor, so NNS hopes to find a better auction mechanism.
 
-Trading service allows domain name registrar to publish the invitation of domain name ownership transfer. 
-It supports both fixed-price transfer and Dutch auction transfer.
+Transparent Bidding Mechanism
+------------------------------
+
+NNS will still use the bidding method to achieve the initial registration and distribution of domain names. 
+However, unlike ENS, we adopt a transparent bidding mechanism. 
+The advantage of this is that the user does not need to remember the ciphertext and there will be no bid revealing period. 
+As long as the bidding is over, the final result can be known at once. 
+However, there will be a problem with the transparent bidding. 
+If the bidding period is certain, no one is willing to bid for the domain name at the beginning, 
+because others can get a little more money to outbid you at the end of the auction. 
+In order to solve the problem of the early bidding disadvantage, we introduce ``randomness`` for the end time of the auction. 
+The auction is composed of two phases. 
+
+**Fixed Period**
+
+The first phase is a fixed period, for example, 3 days. 
+All bids during this period are valid. 
+
+**Random Period**
+
+If someone bids on the last day of the fixed period, 
+then here comes an additional two-day random period, otherwise the auction ends on the third day of the fixed period. 
+During the random period, the end time of the auction is uncertain.
+
+It is necessary to wait until the hash value of the futures blocks of two additional days is determined. 
+According to the size of the interval, the latter someone bids, 
+the more likely he or she is to fall out of the end time of the auction and thus the bidding will be invalid, 
+so it’s better to bid as early as possible. 
+
+**Ends of auction**
+
+After a random period is finished, 
+the bid ending block will be determined according to the hash of future blocks. 
+The bid winner can be determined after all the bids from the bid opening and the ending block are collected.
+
+..  image:: image/bidding.jpeg
+   :height: 700px
+   :width: 800px
+   :scale: 100%
+   :alt: NNS logo
+   :align: center
+
+The end result of this auction method is that if you think that nobody bids against you for a domain name, 
+then you only need to bid within two days after opening the bid, 
+then you can win a domain name after the fixed period is finished on the third day. 
+
+If there is competition for a domain name, then the competition mainly occurs 
+at both ends of the alternating period of the fixed period and the random period. 
+By introducing a random end time of the auction, the late bidding is the less likely to fall within the valid period, 
+avoiding the problem of the late bidding advantage caused by increasing transparency in the auction.
+
+Rent mechanism
+---------------
+
+The registration mechanism only achieves the value discovery at the time of initial distribution. 
+If the domain name is acquired by someone but never used, it is a waste of value. 
+Later, we will analyze how to use the rent mechanism to promote the circulation in the secondary domain name market.
 
 Technical Realization of Lock-free Cyclical Redistributed Token NNC
 ====================================================================
 
 The NNS’s economic system needs an asset, so we designed an asset. 
 
-The NNS's economic system requires that the total assets remain unchanged, and the auction proceeds and rental costs are considered as destroyed, so the assets we design can be consumed and the consumed assets will be redistributed, since destruction and redistribution will be cyclical, so we call it cyclically redistributed token. Lock-free refers to the redistribution process will not lock the users’ assets. The details of this will be explained below. 
+The NNS's economic system requires that the total assets remain unchanged, and the auction proceeds and rental costs are considered as destroyed, 
+so the assets we design can be consumed and the consumed assets will be redistributed, since destruction and redistribution will be cyclical, 
+so we call it cyclically redistributed token. Lock-free refers to the redistribution process will not lock the users’ assets. 
+The details of this will be explained below. 
 
 Initial Distribution of Tokens
 -----------------------------------
