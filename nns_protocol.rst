@@ -588,7 +588,7 @@ As long as the bidding is over, the final result can be known at once.
 However, there will be a problem with the transparent bidding. 
 If the bidding period is certain, no one is willing to bid for the domain name at the beginning, 
 because others can get a little more money to outbid you at the end of the auction. 
-In order to solve the problem of the early bidding disadvantage, we introduce ``randomness`` for the end time of the auction. 
+In order to solve the problem of the early bidding disadvantage, we introduce ``randomness`` at the end time of the auction. 
 The auction is composed of two phases. 
 
 **Fixed Period**
@@ -613,11 +613,11 @@ After a random period is finished,
 the bid ending block will be determined according to the hash of future blocks. 
 The bid winner can be determined after all the bids from the bid opening and the ending block are collected.
 
-..  image:: image/bidding.jpeg
+..  image:: img/bidding.jpeg
    :height: 700px
    :width: 800px
    :scale: 100%
-   :alt: NNS logo
+   :alt: Bidding
    :align: center
 
 The end result of this auction method is that if you think that nobody bids against you for a domain name, 
