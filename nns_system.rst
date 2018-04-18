@@ -163,14 +163,23 @@ More operations are needed in the complete resolution and operations has a linea
 Economic Model-lock-free, Cyclically Redistributed NNC Token
 =============================================================
 
-NNS system will issue a built-in token called NNC. 
+NNS system will issue a built-in token called NEO Name Credit, NNC in short. 
 NNC has three functions:
 
-a) NNC can be used as the collateral assets in the auction. .neo domain names will be handed out via an auction process. In the bidding, who bids the most NNC wins the ownership of the domain name. NNC used in the auction will be locked temporarily. The ownership of locked NNC belongs to the owner of domain names, which means that the ownership of NNC will be transferred as the ownership of domain names is transferred. 
+a) NNC can be used as the collateral assets in the auction. .neo domain names will be handed out via an auction process. 
+In the bidding, who bids the most NNC wins the ownership of the domain name. NNCs that the winner spend for bidding the 
+domain will be transferred into bonus pool.
 
-b) NNC can be used to pay domain name rent. Because NNC is just locked in the auction, causing no other losses except losing NNC liquidity, so in order to prevent speculators from maliciously bidding to drive up domain name prices, it’s needed to introduce rent mechanism for price adjustments: every year (or other fixed time) domain names are charged a certain rent as the domain name use cost. We will first open up second-level domain names of more than 5 characters without charging rent. We will consider introducing a rent mechanism when less-than-5 character high-value domain names are fully open. 
+b) Pay the domain name renting fees. Incase someone bid the domain name, rather, never used or traded, which will cause great damage to the
+value of the domain, we introduced a renting system to the NNS. In the renting system, to hold ownership of a specific domain name,
+the domain owner has to pay a certain amount of renting fee annually. At first, second-level domain names over 5 characters long will be opened out without charging renting fee.
+Only the domain names whose second-level is within 5 characters will be charged an annual fee.
 
-c) System income redistribution. During the bidding process, the system will charge fees to prevent malicious bidding. Besides that, the system will also have rental revenue. these revenues will eventually be returned to NNC holders in proportion to their NNC's holdings. In order to facilitate the redistribution of system revenue, we added the concept of coin days for NEP5 tokens, and NNC token holders only need to manually collect a bonus at intervals. lock-free cyclical redistribution of NNC tokens is achieved in this way.
+c) System income redistribution. NNCs paied for bidding domain will be transferred in the bouns pool, and to prevent melicious bidding, a fee of about 10 percent 
+of the finnal bidding of the others who pake part in the auction will be charged. All of these NNCs earned in the auction will eventually be returned 
+to the NNC holders in proportion of their NNC's holdings. 
+In order to facilitate the redistribution of system revenue, we added the concept of coin days for NEP5 tokens, 
+and NNC token holders only need to manually collect a bonus at intervals. lock-free cyclical redistribution of NNC tokens is achieved in this way.
 
 Issuance volume and distribution of tokens will be finalized in a future version of this whitepaper. 
 
