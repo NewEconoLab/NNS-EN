@@ -175,8 +175,8 @@ value of the domain, we introduced a renting system to the NNS. In the renting s
 the domain owner has to pay a certain amount of renting fee annually. At first, second-level domain names over 5 characters long will be opened out without charging renting fee.
 Only the domain names whose second-level is within 5 characters will be charged an annual fee.
 
-c) System income redistribution. NNCs paied for bidding domain will be transferred in the bouns pool, and to prevent melicious bidding, a fee of about 10 percent 
-of the finnal bidding of the others who pake part in the auction will be charged. All of these NNCs earned in the auction will eventually be returned 
+c) System income redistribution. NNCs paid for bidding domain will be transferred in the bonus pool, and to prevent melicious bidding, a fee of about 10 percent 
+of the finnal bidding of the others who take part in the auction will be charged. All of these NNCs earned in the auction will eventually be returned 
 to the NNC holders in proportion of their NNC's holdings. 
 In order to facilitate the redistribution of system revenue, we added the concept of coin days for NEP5 tokens, 
 and NNC token holders only need to manually collect a bonus at intervals. lock-free cyclical redistribution of NNC tokens is achieved in this way.
