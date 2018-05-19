@@ -160,28 +160,49 @@ In a complete manner, the root of the domain name will start with the root domai
 
 More operations are needed in the complete resolution and operations has a linear growth with the layer number of domain names.
 
-Economic Model-Lock-free, Cyclically Redistributed NNC Token
-===============================================================
+NNS economic model
+---------------
 
-NNS system will issue a built-in token called NEO Name Credit, NNC in short. NNC has three functions:
 
-a) NNC can be used as the collateral assets in the auction. .neo domain names will be handed out via an auction process. 
-In the bidding, who bids the most NNC wins the ownership of the domain name. NNCs that the winner spend in bidding the 
-domain will be transferred into bonus pools.
+Two kinds of tokens were introduced in the economic model of NNS. One is NNC, which is a UTXO asset and has a total supply of 1 billion. The other is SGS, which is 
+a NEP5 token. It’s bound with NEO’s GAS at the ratio of 1:1 and they can be converted with other. 
 
-b) Pay the domain name rent fees. In case someone bids the domain name, but never use or trade it, 
-which will cause great damage to the value of the domain, we introduced a rent system to the NNS. 
-In the rent system, to maintain his or her ownership of a specific domain name, the domain owner has to pay a certain amount of rent fee annually. 
-At first, over five-character second-level domain names will be opened without charging rent fee. 
-Only the domain names whose second-level is within 5 characters will be charged an annual fee.
+NNC: an equity proof token
+---------------
 
-c) System income redistribution. NNCs paid for bidding domain will be transferred into the bonus pool, 
-and to prevent malicious bidding, a fee of about 10 percent of the final bidding of the others who take part in the auction will be charged. 
-All of these NNCs earned in the auction will eventually be returned to the NNC holders in proportion of their NNC’s holdings. 
-In order to facilitate the redistribution of system revenue, we add the concept of coin days for NEP5 tokens, 
-and NNC token holders only need to manually collect the bonus at intervals. Lock-free cyclical redistribution of NNC tokens is achieved in this way.
 
-Issuance volume and distribution of tokens will be finalized in a future version of this whitepaper.
+NNC is an equity proof token introduced into the NNS system. In order to sustain the system, NNS has introduced a fee redistribution system. The fees charged for all domain name auctions will be completely redistributed to NNC's holders.
+
+The initial issuance of the NNC is in the form of airdrop(s). NNC will be only airdropped to NEO holders. Specific airdrop rules will be announced in the future.
+SGAS-a kind of gas token
+---------------
+
+
+In order to facilitate the use of GAS in application contracts, NNS has issued a NEP5-based token with a total supply of 100 million, which is  bound with NEO's GAS at the ratio of 1:1 and they can be converted with each other freely..
+
+The GAS used for the redemption of SGAS will be stored in the account of the SGAS contract. NNS will not transfer or use this GAS. Therefore, it is guaranteed that as long as the user holds the SGAS, it can be converted to the same amount of GAS.
+
+In the NNS system, SGAS mainly has the following functions:
+
+
+It can be converted with GAS and vice-versa
+- Recharge/withdraw from the registrar.
+- Participate in domain auctions. 
+- Auction fee payment
+
+
+In addition to being used within the NNS system, since the SGAS itself is a NEP5 token system that is deployed on the Mainnet, all contract applications can also use this SGAS contract to perform convenient intra-contract GAS operations.
+
+Bonus pools
+---------------
+
+When a user bids for a domain name, NNS will generate income from SGAS. There are two main sources:
+
+1. The bid winner. If the user wins the bid and obtains the domain name ownership, then the bid winner will be charged all the bid fund as the fee.
+
+2. The bid loser. For users who participate in the auction, but lose the bid, 10% of the bid is charged as a fee.
+
+All fee income will be transferred to bonus pools. In the bonus pools, all NNC holders can receive SGAS in proportion to their NNC holdings.
 
 
 Domain Name Browser
