@@ -161,21 +161,22 @@ In a complete manner, the root of the domain name will start with the root domai
 More operations are needed in the complete resolution and operations has a linear growth with the layer number of domain names.
 
 NNS economic model
----------------
+======================
 
 
 Two kinds of tokens were introduced in the economic model of NNS. One is NNC, which is a UTXO asset and has a total supply of 1 billion. The other is SGS, which is 
 a NEP5 token. It’s bound with NEO’s GAS at the ratio of 1:1 and they can be converted with other. 
 
 NNC: an equity proof token
----------------
+-----------------------------
 
 
 NNC is an equity proof token introduced into the NNS system. In order to sustain the system, NNS has introduced a fee redistribution system. The fees charged for all domain name auctions will be completely redistributed to NNC's holders.
 
 The initial issuance of the NNC is in the form of airdrop(s). NNC will be only airdropped to NEO holders. Specific airdrop rules will be announced in the future.
+
 SGAS-a kind of gas token
----------------
+----------------------------
 
 
 In order to facilitate the use of GAS in application contracts, NNS has issued a NEP5-based token with a total supply of 100 million, which is  bound with NEO's GAS at the ratio of 1:1 and they can be converted with each other freely..
