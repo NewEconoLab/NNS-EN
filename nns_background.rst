@@ -4,7 +4,7 @@ NNS Background
 
 ..  image:: img/logo.png
    :height: 351px
-   :width: 300px
+   :width: 370px
    :scale: 50%
    :alt: NNS logo
    :align: right
