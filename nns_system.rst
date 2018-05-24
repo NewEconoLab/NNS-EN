@@ -64,7 +64,8 @@ A smart contract is allowed to be the owner, which provides a variety of ownersh
 1. The domain name co-owned by two persons. The transfer of domain names or changing registrars is only possible with two people’s signatures.
 
 2. The domain co-owned by multi-person. The transfer of domain names or changing registrars is only possible with more than 50% of people’s signatures.
-    If the owner of the domain name is an account address, the user could invoke registrar’s interface to manage second-level domain names.
+
+If the owner of the domain name is an account address, the user could invoke registrar’s interface to manage second-level domain names.
 
 Registrar
 ----------
