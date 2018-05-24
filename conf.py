@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'NNS'
-copyright = '2018, Jinghui Liao<jinghui@wayne.edu>'
-author = 'Jinghui Liao<jinghui@wayne.edu>'
+copyright = '2018, NEL'
+author = 'Yongxin Liu; Jianying Li'
 
 # The short X.Y version
 version = ''
