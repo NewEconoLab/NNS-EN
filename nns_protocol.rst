@@ -636,168 +636,65 @@ The registration mechanism only achieves the value discovery at the time of init
 If the domain name is acquired by someone but never used, it is a waste of value. 
 Later, we will analyze how to use the rent mechanism to promote the circulation in the secondary domain name market.
 
-Technical Realization of Lock-free Cyclical Redistributed Token NNC
-====================================================================
+Cyclically redistributed SGAS token Technology
+===================================================
 
-The NNS’s economic system needs an asset, so we designed an asset. 
+In order to achieve the sound development of the NNS system, NNS introduces a cyclical token system, and introduces the equity tokens that provides redistribution proof of system income. The system is composed by three parts:
 
-The NNS's economic system requires that the total assets remain unchanged, and the auction proceeds and rental costs are considered as destroyed, 
-so the assets we design can be consumed and the consumed assets will be redistributed, since destruction and redistribution will be cyclical, 
-so we call it cyclically redistributed token. Lock-free refers to the redistribution process will not lock the users’ assets. 
-The details of this will be explained below. 
+1. NNC Equity proof token.
 
-Initial Distribution of Tokens
------------------------------------
+2. SGAS NEP5 Token Contract.
 
-NNC will be initially distributed through an ICO mechanism.
+3. Coinpool Bonus pool contract.
 
-Redistribution Mechanism
--------------------------
+The main role of NNC is to provide the equity proof when the income from domain auctions is redistributed.
 
-We use the destruction interface to destroy tokens. Tokens to be destroyed are:
+SGAS is a NEP5 asset that is bound to GAS based on a ratio of1:1 to facilitate the use of GAS in application contracts. CoinPool is a contract that receives domain name auction fees and performs redistribution management.
 
-1. Rent cost will be destroyed by the system
+Redistribution mechanism
+-----------------------------
 
-2. Revenue from second-level domain name auction will be destroyed by the system. 
+NNS charges a fee when the user participates in a domain auction. This fee income will be redistributed based on the NNS users' NNC holdings and will be completely redistributed to NNC holders.
 
-3. If anyone wants to destroy part of his or her tokens, they will be destroyed by the system.
+Bonus claiming mechanism
+--------------------------------
 
-Once token is destroyed, they are counted into destruction pool. Assets in the destruction pool will go into the bonus pool, from which users could collect assets. 
+The fee income of the NNS system will be transferred to the Bonus pool contract, which records the fee income. Users receive the bonus based on their NNC holdings via the bonus pool contract
 
-Lock-free Bonus Collection 
---------------------------
+Bonus pool details
+------------------------------
 
-Like an auction, this kind of system is usually composed of four stages: opening a bid, placing a bid, revealing a bid and winning a bid. 
-Users’ tokens have to be paid into the system during the bidding, which means users’ assets are locked, 
-consumed after winning the bid or unlocked if the bid is missed. 
+All the SGAS that the domain name auction receives will be redistributed. The proportion of re-allocation is based on the users’ NNC holdings. For cost considerations, we use 10,000 blocks as the unit to explain this and re-distribute the charged SGAS. When a user has an NNC utxo asset and uses it after at least two units, he will be able to receive the dividend from the system income that occurs within blocks when he is in possession of that NNC UTXO asset. Each NNC utxo asset can receive SGAS from the system income that occurs within no more than 15 blocks. If he holds the asset for more than 15 units, the dividend will be claimed in installments. That is to say, if the user has been holding this UTXO asset and hasn’t sent it to another address, then he will always receive the SGAS dividend , but cannot claim it. He can claim the dividend only after the user sends this UTXO asset to another address. 
 
-However, NNC token is not composed of stages including participating bonus collection, waiting for the bonus and collecting the bonus,
-which means users’ assets are not locked in the whole process. 
- 
-NNC uses the mechanism of the bonus pool queue, as shown in the above picture, only a fixed number of bonus pools (for example, five) are kept. 
-The oldest bonus pool(the head pool)will be destroyed when more than five bonus pools are generated.
+SGAS interface (Only more interface than NEP5)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Besides the bonus pool, users’ assets are composed of two types: fixed assets and change. The holding time of fixed assets can only increase, and users whose holding time is earlier than collection time of a bonus pool are qualified to collect the bonus.
+SGAS first meets NEP5 specifications, but the NEP specification interface is  not described in details here. 
 
-The holding time of fixed assets increases after collecting the bonus. It’s like coin hours is consumed, thus preventing the repeated collection of the same bonus. 
+**mintTokens**
 
-Details of The Bonus Pool
-----------------------------
+Exchange GAS for an equal amount of SGAS, then transfer it to the SGAS contract account, and then invoke contract's mintTokens to transfer equal amount of SGAS to your account. It needs signing. 
 
-The token will maintain several bonus pools. When each bonus pool is generated, the assets in the destruction pool will all be transferred into this bonus pool. 
-If the maximum bonus pool number is exceeded, the oldest bonus pool will also be destroyed and the remaining assets in the destroyed bonus pool will also be counted in the latest bonus pool. 
+**refund**
+	
+The SGAS contract is used to convert the SGAS to the equivalent GAS. The SGAS contract checks the identity of the user and then constructs a contract transaction to transfer the GAS of the SGAS contract account to the user’s account and deducts the SGAS in the user’s account. This needs signing.
 
-The number of bonus pools is fixed, for example, a bonus pool is generated for every 4096 blocks.
-A maximum of five bonus pools are maintained. When the sixth bonus pool is generated, the first bonus pool will be destroyed,
-and all of its assets are placed in the latest bonus pool. The above number of bonus pools and how often one bonus pool is produced are both tentative).
-Each bonus pool will correspond to a block, this block is the bonus collection time, only those whose holding time is earlier than 
-the bonus collection time can collect the bonus. 
+**Migrate**
 
-Details of Fixed Assets and Exchange
------------------------------------------------------
+Used for contract upgrades. It’s used when there is a problem with the contract that requires an updated version. Only super administrators have permission to call it.
 
-Fixed assets and change, of which fixed assets record a holding time.
 
-Fixed assets and change only affect the amount of the award, the rest of the functions are not affected.
-
-Fixed assets + change = user's balance of assets
-
-Fixed assets do not have a fractional part, the decimal part is counted in the change. When “ considered as fixed assets” is mentioned below, it means the integer part is considered as fixed assets, and decimal part as change. 
-
-Change will be firstly used in the transfer of tokens and fixed assets will be used only when the change is not enough. 
-
-Transferrer: fixed assets can only be reduced. 
-
-Transferee: fixed assets remain unchanged, the transferred value is counted in the change. 
-
-Fixed assets can only be increased in two ways:
-
-1. **Create an account**. 
-
- (a transfer to an address which has no NNC is regarded as creating an account)
- The transferred assets are regarded as fixed assets and the holding time is the new block ID. 
-
-2. **Collect the bonus**. 
-
- After collecting the bonus, personal assets and the collected bonus will be considered as fixed assets, holding time is the bonus block.
-
-		
-When collecting the bonus, users can only collect bonus when their holding time is earlier than bonus pool time. 
-Bonus collection ratio is calculated as the total amount in the current bonus pools/(the total issuance volume-the total amount in the current bonus pools)
-		
-Let’s take numbers to exemplify it. For example, there are 3 bonus pools: they were produced by block 4096，8000，10000. One user’s fixed assets is 100. His holding time is 7000, then he cannot collect the bonus in the first pool, but can collect the bonus from the second and third pools. The current block is 10500. Once the user collects the bonus, his assets holding time becomes 10500, so he cannot collect the bonus from any pools. 
-		
-For example, there is 50300000 NNC in a bonus pool. Then the user’s bonus collection ratio is 
-
-::
-
-    50300000 /（100000000-50300000）=1.23587223
-    
-This user’s fixed asset is 100, then he can collect 123.587223 NNC from the pool. 
-If there is 500, 000 NNC in a bonus pool, then his collection ratio is 
-
-::
-
-    500000 /（100000000-500000）=0.00502512
-    
-as the user has 100 NNC of fixed asset, then he can collect 0.502512 NNC from the pool.  
-
-NNC Interface(only additional interfaces compared with NEP 5 will be described)
---------------------------------------------------------------------------------
-
-NNC first meets the NEP5 standard, and the NEP standard interface will not be described any more.
-
-balanceOfDetail(byte[] address)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Returning the details of the user's assets, such as how much fixed assets, how much change, the total amount. 
-Fixed assets holding block does not need a signature. Anybody can check it. 
-
-Return structure:
-
-::
-
-    {
-        Cash amount
-        The amount of fixed assets 
-        Fixed assets generation time( new block ID)
-        Balance (fixed assets + cash)
-    }
-
-use(byte[] address,BigInteger value)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The consumption of assets in an account requires the account signature.
-
-Consumed assets go into bonus pools.
-
-getBonus(byte[] address)
+CoinPool interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Account signature is required when designated accounts collect the bonus.
+**setSGASIn(byte[] txid)**
 
-After the collection of the bonus, the total assets in this account will be considered as fixed assets and fixed assets holding block 
-of this account will be changed. 
+It’s called by the NNS registrar contract to transfer the SGAS income to the bonus pool, which needs to verify the contract address. It can only be called via the NNS registrar. The parameter txid is the transaction ID of the transaction.
 
-checkBonus()
-~~~~~~~~~~~~~~
+**countSGASOnBlock(BigInteger blockid)**
 
-Checking current bonus pool doesn’t need a signature.
+Used to view the amount of bonuses saved in the specified block range. The parameter blockid is the block height of the query.
 
-*Return* `Array<BonusInfo>`
+**Claim**
 
-::
-
-    BonusInfo
-    {
-        StartBlock;//bonus collecting block
-        BonusCount;//total amount of this bonus pool
-        BonusValue;// remaining amount of this bonus pool. 
-        LastIndex;// the id of last bonus
-    }
-
-newBonus ()
-~~~~~~~~~~~~~~
-
-Generating a new bonus pool can be called by anyone. But the bonus pool generation has to meet the bonus pool interval, so repeated calls is useless. 
-This interface can be seen as a push to generate a new bonus pool.
+Used by users to claim the SGAS in the bonus pool. 

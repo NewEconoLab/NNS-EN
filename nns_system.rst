@@ -161,16 +161,21 @@ In a complete manner, the root of the domain name will start with the root domai
 
 More operations are needed in the complete resolution and operations has a linear growth with the layer number of domain names.
 
-NNS economic model
+NNS Economic Model
 ======================
 
+Two kinds of tokens were introduced in the economic model of NNS. One is NNC, which is a UTXO asset and has a total supply of 1 billion. The other is SGS, which is a NEP5 token. It’s bound with NEO’s GAS at the ratio of 1:1 and they can be converted with each other.
 
-Two kinds of tokens were introduced in the economic model of NNS. One is NNC, which is a UTXO asset and has a total supply of 1 billion. The other is SGS, which is 
-a NEP5 token. It’s bound with NEO’s GAS at the ratio of 1:1 and they can be converted with other. 
+The NNS root domain name is initiated by the NNC holder's voting. There are two modes of voting. 
+
+One is that the administrator initiates the root domain name voting, and the domain name is activated when less than 30% of the votes are against it in 3 days. 
+
+The other one is that any NNC holder starts the root domain name voting. If more than 50% of the votes are in favor of it within 3 days, the root domain name will be activated. Either way, voters or non-voters will be participants in the game. 
+The GAS income from domain name registration will be redistributed to NNC holders. 
+
 
 NNC: an equity proof token
 -----------------------------
-
 
 NNC is an equity proof token introduced into the NNS system. In order to sustain the system, NNS has introduced a fee redistribution system. The fees charged for all domain name auctions will be completely redistributed to NNC's holders.
 
@@ -202,10 +207,9 @@ When a user bids for a domain name, NNS will generate income from SGAS. There ar
 
 1. The bid winner. If the user wins the bid and obtains the domain name ownership, then the bid winner will be charged all the bid fund as the fee.
 
-2. The bid loser. For users who participate in the auction, but lose the bid, 10% of the bid is charged as a fee.
+2. The bid loser. For users who participate in the auction, but lose the bid, 5% of the bid is charged as a fee.
 
 All fee income will be transferred to bonus pools. In the bonus pools, all NNC holders can receive SGAS in proportion to their NNC holdings.
-
 
 Domain Name Browser
 =====================
